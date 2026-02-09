@@ -16,6 +16,67 @@
             body {
                 background: linear-gradient(135deg, #f8faf6 0%, #e8f0dc 100%);
                 min-height: 100vh;
+                margin: 0;
+            }
+
+            /* Dashboard Top Bar */
+            .dashboard-topbar {
+                background: white;
+                box-shadow: 0 2px 8px rgba(45, 58, 31, 0.1);
+                padding: 16px 20px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .dashboard-topbar-content {
+                max-width: 1400px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .dashboard-title {
+                font-family: 'Fraunces', serif;
+                font-size: 1.3rem;
+                color: var(--ink);
+                margin: 0;
+                font-weight: 600;
+            }
+
+            .dashboard-user-menu {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .user-name {
+                color: var(--subtle-ink);
+                font-size: 0.95rem;
+                font-weight: 500;
+            }
+
+            .logout-btn {
+                background: #f44336;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 8px;
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .logout-btn:hover {
+                background: #e53935;
+                box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+            }
+
+            .logout-btn:active {
+                transform: translateY(1px);
             }
 
             .dashboard-container {
@@ -194,6 +255,22 @@
         </style>
     </head>
     <body>
+        <!-- Dashboard Top Bar -->
+        <nav class="dashboard-topbar">
+            <div class="dashboard-topbar-content">
+                <div class="dashboard-brand">
+                    <h1 class="dashboard-title">Aurie Day Dashboard</h1>
+                </div>
+                <div class="dashboard-user-menu">
+                    <span class="user-name">Welcome, {{ Auth::user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="logout-btn">Sign Out</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
         <div class="dashboard-container">
             <a href="/" class="back-link">← Back to Home</a>
 
