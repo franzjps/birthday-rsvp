@@ -13,6 +13,45 @@
         @endif
     </head>
     <body>
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="navbar-menu" id="navbarMenu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#dress-code" class="nav-link">Dress Code</a></li>
+                    <li><a href="#reminders" class="nav-link">Reminders</a></li>
+                    <li><a href="#gift-guide" class="nav-link">Gift Guide</a></li>
+                    <li><a href="#locations" class="nav-link">Locations</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        @if (session('status'))
+            <div class="success-toast" id="successToast" role="status">
+                @if (session('status') === 'rsvp-saved')
+                    <span>✓ Thank you! Your RSVP has been received.</span>
+                @elseif (session('status') === 'love-sent')
+                    <span>✓ Thank you! Your message has been sent with love.</span>
+                @endif
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="error-toast" id="errorToast" role="alert">
+                @if (session('error') === 'rsvp-duplicate')
+                    <span>⚠ You have already submitted an RSVP with this contact information.</span>
+                @elseif (session('error') === 'love-duplicate')
+                    <span>⚠ You have already sent a message with this contact information.</span>
+                @endif
+            </div>
+        @endif
+
         <div class="page">
             <div class="ambient"></div>
             <header class="site-header">
@@ -25,7 +64,7 @@
                 </div>
             </header>
 
-            <main class="hero scroll-reveal">
+            <main class="hero scroll-reveal" id="home">
                 <div class="hero-copy">
                     <p class="eyebrow">Please join us for a christening celebration</p>
                     <h1>Val Aurie Flyn R. Samson</h1>
@@ -33,8 +72,8 @@
                         We warmly invite you to our child’s christening and hope you can be there to share this meaningful moment with us.
                     </p>
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="#book">I would be honored to attend</a>
-                        <a class="btn btn-ghost" href="#gallery">Sending my love, but I’m unable to attend</a>
+                        <button class="btn btn-primary" type="button" data-open-modal="rsvpModal">I would be honored to attend</button>
+                        <button class="btn btn-ghost" type="button" data-open-modal="loveModal">Sending my love, but I’m unable to attend</button>
                     </div>
                     <div class="calendar-widget">
                         <div class="calendar-header">
@@ -178,7 +217,7 @@
             </section>
 
             <!-- Dress Code Section -->
-            <section class="dresscode-section scroll-reveal">
+            <section class="dresscode-section scroll-reveal" id="dress-code">
                 <div class="dresscode-header">
                     <h2>Dress Code</h2>
                     <p class="dresscode-subtitle">Please wear these colors for our celebration</p>
@@ -205,8 +244,82 @@
                 </div>
             </section>
 
+            <!-- Gentle Reminders Section -->
+            <section class="reminders-section scroll-reveal" id="reminders">
+                <div class="reminders-header">
+                    <h2>Gentle Reminders</h2>
+                    <p class="reminders-subtitle">Please keep these in mind during our celebration</p>
+                </div>
+                <div class="reminders-grid">
+                    <div class="reminder-card">
+                        <div class="reminder-icon">🚫</div>
+                        <h3>No Kissing Aurie</h3>
+                        <p>Please respect Aurie's comfort and avoid kissing to ensure health and safety</p>
+                    </div>
+                    <div class="reminder-card">
+                        <div class="reminder-icon">👗</div>
+                        <h3>Dress Modestly</h3>
+                        <p>Please wear modest and respectful attire appropriate for a christening ceremony</p>
+                    </div>
+                    <div class="reminder-card">
+                        <div class="reminder-icon">🚭</div>
+                        <h3>No Smoking/Vaping</h3>
+                        <p>Please refrain from smoking or vaping during the event to keep the environment safe</p>
+                    </div>
+                    <div class="reminder-card">
+                        <div class="reminder-icon">🧼</div>
+                        <h3>Sanitize Before Touching</h3>
+                        <p>Kindly sanitize your hands before touching Aurie to keep her healthy and protected</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gift Guide Section -->
+            <section class="giftguide-section scroll-reveal" id="gift-guide">
+                <div class="giftguide-header">
+                    <h2>Gift Guide</h2>
+                    <p class="giftguide-subtitle">Thoughtful gift ideas for Aurie's special day</p>
+                </div>
+                <div class="giftguide-grid">
+                    <div class="gift-card">
+                        <div class="gift-icon">🛏️</div>
+                        <h3>Crib Essentials</h3>
+                        <p>Soft blankets, pillow sets, or cozy crib bedding to make Aurie's sleep comfortable</p>
+                    </div>
+                    <div class="gift-card">
+                        <div class="gift-icon">🧸</div>
+                        <h3>Toys & Playtime</h3>
+                        <p>Age-appropriate toys, rattles, or soft plush toys that are safe and developmentally beneficial</p>
+                    </div>
+                    <div class="gift-card">
+                        <div class="gift-icon">👶</div>
+                        <h3>Clothing & Accessories</h3>
+                        <p>Cute outfits, mittens, hats, or special christening-themed clothing in green or white</p>
+                    </div>
+                    <div class="gift-card">
+                        <div class="gift-icon">🍼</div>
+                        <h3>Feeding & Care</h3>
+                        <p>Bottles, sterilizers, baby care kits, or premium baby products for daily care</p>
+                    </div>
+                    <div class="gift-card">
+                        <div class="gift-icon">📚</div>
+                        <h3>Books & Learning</h3>
+                        <p>Beautiful board books, nursery rhyme collections, or interactive learning toys</p>
+                    </div>
+                    <div class="gift-card">
+                        <div class="gift-icon">💝</div>
+                        <h3>Keepsakes & Memories</h3>
+                        <p>Personalized items, photo frames, or special keepsakes to commemorate this milestone</p>
+                    </div>
+                </div>
+                <div class="giftguide-message">
+                    <h3>Your Presence is Our Greatest Gift</h3>
+                    <p>There is absolutely no obligation to bring a gift. Your presence at Aurie's christening is what truly matters to us. Celebrating this special milestone with you and your love and support mean more than anything in the world.</p>
+                </div>
+            </section>
+
             <!-- Location Map Section -->
-            <section class="location-section scroll-reveal">
+            <section class="location-section scroll-reveal" id="locations">
                 <div class="location-header">
                     <h2>Event Locations</h2>
                     <p class="location-subtitle">Join us at these two special places</p>
@@ -290,7 +403,295 @@
             </section>
         </div>
 
+        <div class="modal" id="rsvpModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="rsvpModalTitle">
+            <div class="modal-backdrop" data-close-modal></div>
+            <div class="modal-card" role="document">
+                <div class="modal-header">
+                    <div>
+                        <p class="modal-eyebrow">RSVP</p>
+                        <h3 id="rsvpModalTitle">We are honored to celebrate with you</h3>
+                        <p class="modal-subtitle">Kindly share your guest details below.</p>
+                    </div>
+                    <button type="button" class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+                </div>
+                <form class="modal-form" method="POST" action="{{ route('rsvp.store') }}">
+                    @csrf
+                    <label class="modal-label" for="guestNames">Guest names (please list all names)</label>
+                    <textarea id="guestNames" name="guestNames" rows="4" placeholder="Example: Maria Santos, Juan Santos, Ana Santos" required></textarea>
+
+                    <label class="modal-label" for="guestCount">Number of guests attending</label>
+                    <input id="guestCount" name="guestCount" type="number" min="1" max="20" placeholder="e.g., 4" required />
+
+                    <fieldset class="modal-fieldset">
+                        <legend class="modal-label">Preferred contact</legend>
+                        <div class="contact-options" role="radiogroup" aria-label="Preferred contact">
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodRsvp" value="phone" data-contact-radio checked />
+                                <span>Phone number</span>
+                            </label>
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodRsvp" value="email" data-contact-radio />
+                                <span>Email</span>
+                            </label>
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodRsvp" value="facebook" data-contact-radio />
+                                <span>Facebook account</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="contact-input" data-contact-input="phone">
+                        <label class="modal-label" for="contactPhoneRsvp">Phone number</label>
+                        <input id="contactPhoneRsvp" name="contactPhoneRsvp" type="tel" placeholder="e.g., +63 912 345 6789" />
+                    </div>
+                    <div class="contact-input is-hidden" data-contact-input="email">
+                        <label class="modal-label" for="contactEmailRsvp">Email</label>
+                        <input id="contactEmailRsvp" name="contactEmailRsvp" type="email" placeholder="e.g., you@email.com" />
+                    </div>
+                    <div class="contact-input is-hidden" data-contact-input="facebook">
+                        <label class="modal-label" for="contactFacebookRsvp">Facebook account</label>
+                        <input id="contactFacebookRsvp" name="contactFacebookRsvp" type="text" placeholder="e.g., facebook.com/yourname" />
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit RSVP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="loveModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="loveModalTitle">
+            <div class="modal-backdrop" data-close-modal></div>
+            <div class="modal-card" role="document">
+                <div class="modal-header">
+                    <div>
+                        <p class="modal-eyebrow">With Love</p>
+                        <h3 id="loveModalTitle">Sending love to Aurie</h3>
+                        <p class="modal-subtitle">Share a short message and your contact details.</p>
+                    </div>
+                    <button type="button" class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+                </div>
+                <form class="modal-form" method="POST" action="{{ route('love.store') }}">
+                    @csrf
+                    <label class="modal-label" for="loveName">Your name</label>
+                    <input id="loveName" name="loveName" type="text" placeholder="e.g., Maria Santos" required />
+
+                    <label class="modal-label" for="loveMessage">Message for Aurie</label>
+                    <input id="loveMessage" name="loveMessage" type="text" placeholder="A sweet note for Aurie" required />
+
+                    <fieldset class="modal-fieldset">
+                        <legend class="modal-label">Preferred contact</legend>
+                        <div class="contact-options" role="radiogroup" aria-label="Preferred contact">
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodLove" value="phone" data-contact-radio checked />
+                                <span>Phone number</span>
+                            </label>
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodLove" value="email" data-contact-radio />
+                                <span>Email</span>
+                            </label>
+                            <label class="contact-option">
+                                <input type="radio" name="contactMethodLove" value="facebook" data-contact-radio />
+                                <span>Facebook account</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="contact-input" data-contact-input="phone">
+                        <label class="modal-label" for="contactPhoneLove">Phone number</label>
+                        <input id="contactPhoneLove" name="contactPhoneLove" type="tel" placeholder="e.g., +63 912 345 6789" />
+                    </div>
+                    <div class="contact-input is-hidden" data-contact-input="email">
+                        <label class="modal-label" for="contactEmailLove">Email</label>
+                        <input id="contactEmailLove" name="contactEmailLove" type="email" placeholder="e.g., you@email.com" />
+                    </div>
+                    <div class="contact-input is-hidden" data-contact-input="facebook">
+                        <label class="modal-label" for="contactFacebookLove">Facebook account</label>
+                        <input id="contactFacebookLove" name="contactFacebookLove" type="text" placeholder="e.g., facebook.com/yourname" />
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div class="modal" id="infoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle" data-auto-open="true">
+            <div class="modal-backdrop" data-close-modal></div>
+            <div class="modal-card" role="document">
+                <div class="modal-header">
+                    <div>
+                        <p class="modal-eyebrow">IMPORTANT NOTICE</p>
+                        <h3 id="infoModalTitle">Limited Time Only</h3>
+                        <p class="modal-subtitle">This website will be open only until March 20, 2026.</p>
+                    </div>
+                    <button type="button" class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+                </div>
+                <div class="modal-form">
+                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink);">
+                        Thank you for visiting! This website has been created to help coordinate RSVP submissions and messages for Aurie's christening celebration. 
+                        For organizational purposes, the site will remain accessible only until <strong>March 20, 2026</strong>.
+                    </p>
+                    <p style="margin: 16px 0 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink);">
+                        If you haven't already, please submit your RSVP or send a message of love before then. Thank you for being part of this special occasion!
+                    </p>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-primary" data-close-modal>Got it!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <style>
+            /* Navbar Styles */
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: white;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                z-index: 100;
+            }
+
+            .navbar-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 2rem;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                height: 60px;
+            }
+
+            .navbar-menu {
+                list-style: none;
+                display: flex;
+                gap: 2rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-link {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: #202516;
+                text-decoration: none;
+                transition: color 0.3s ease;
+                position: relative;
+            }
+
+            .nav-link:hover {
+                color: #202516;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: #6f7f4f;
+                transition: width 0.3s ease;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+            .navbar-toggle {
+                display: none;
+                flex-direction: column;
+                background: none;
+                border: none;
+                cursor: pointer;
+                gap: 6px;
+                padding: 0;
+            }
+
+            .navbar-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #1a1a1a;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .navbar-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .navbar-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .navbar-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            @media (max-width: 768px) {
+                .navbar-container {
+                    padding: 0 1.5rem;
+                }
+
+                .navbar-toggle {
+                    display: flex;
+                }
+
+                .navbar-menu {
+                    position: absolute;
+                    top: 60px;
+                    left: 0;
+                    right: 0;
+                    flex-direction: column;
+                    gap: 0;
+                    background: rgba(255, 255, 255, 0.8);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.3s ease;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                }
+
+                .navbar-menu.active {
+                    max-height: 300px;
+                }
+
+                .navbar-menu li {
+                    border-bottom: 1px solid #f5f5f5;
+                }
+
+                .navbar-menu li:last-child {
+                    border-bottom: none;
+                }
+
+                .nav-link {
+                    display: block;
+                    padding: 1rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+
+                .nav-link::after {
+                    display: none;
+                }
+            }
+
+            /* Page content padding to avoid navbar overlap */
+            .page {
+                padding-top: 60px;
+            }
+
             .banner-section {
                 position: relative;
                 width: 100%;
@@ -506,6 +907,231 @@
                 }
             }
 
+            /* Reminders Section Styles */
+            .reminders-section {
+                padding: 5rem 2rem;
+                background: #ffffff;
+            }
+
+            .reminders-header {
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+
+            .reminders-header h2 {
+                font-family: 'Fraunces', serif;
+                font-size: clamp(2.2rem, 4vw, 3rem);
+                color: #1a1a1a;
+                margin-bottom: 0.75rem;
+            }
+
+            .reminders-subtitle {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 1.1rem;
+                color: #666;
+            }
+
+            .reminders-grid {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .reminder-card {
+                background: linear-gradient(135deg, #f8f9f6 0%, #f0f3eb 100%);
+                border-radius: 16px;
+                padding: 2.5rem;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .reminder-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            }
+
+            .reminder-icon {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                display: inline-block;
+            }
+
+            .reminder-card h3 {
+                font-family: 'Fraunces', serif;
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+                color: #1f2a1f;
+            }
+
+            .reminder-card p {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 0.95rem;
+                color: #4a4a4a;
+                line-height: 1.6;
+            }
+
+            @media (max-width: 768px) {
+                .reminders-section {
+                    padding: 3rem 1.5rem;
+                }
+
+                .reminders-header {
+                    margin-bottom: 3rem;
+                }
+
+                .reminders-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .reminder-card {
+                    padding: 1.75rem;
+                }
+
+                .reminder-icon {
+                    font-size: 2.5rem;
+                }
+            }
+
+            /* Gift Guide Section Styles */
+            .giftguide-section {
+                padding: 5rem 2rem;
+                background: linear-gradient(135deg, #f8f9f6 0%, #ffffff 100%);
+            }
+
+            .giftguide-header {
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+
+            .giftguide-header h2 {
+                font-family: 'Fraunces', serif;
+                font-size: clamp(2.2rem, 4vw, 3rem);
+                color: #1a1a1a;
+                margin-bottom: 0.75rem;
+            }
+
+            .giftguide-subtitle {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 1.1rem;
+                color: #666;
+            }
+
+            .giftguide-grid {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+
+            .gift-card {
+                background: white;
+                border-radius: 16px;
+                padding: 2.5rem;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            }
+
+            .gift-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+                background: linear-gradient(135deg, #f0f3eb 0%, #ffffff 100%);
+            }
+
+            .gift-icon {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                display: inline-block;
+            }
+
+            .gift-card h3 {
+                font-family: 'Fraunces', serif;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                color: #1f2a1f;
+            }
+
+            .gift-card p {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 0.95rem;
+                color: #4a4a4a;
+                line-height: 1.6;
+            }
+
+            @media (max-width: 1024px) {
+                .giftguide-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .giftguide-section {
+                    padding: 3rem 1.5rem;
+                }
+
+                .giftguide-header {
+                    margin-bottom: 3rem;
+                }
+
+                .giftguide-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .gift-card {
+                    padding: 1.75rem;
+                }
+
+                .gift-icon {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .giftguide-message {
+                max-width: 800px;
+                margin: 4rem auto 0;
+                padding: 2.5rem;
+                background: linear-gradient(135deg, #a3b18a 0%, #7b8f6a 100%);
+                border-radius: 16px;
+                text-align: center;
+                color: white;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            }
+
+            .giftguide-message h3 {
+                font-family: 'Fraunces', serif;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                margin-top: 0;
+            }
+
+            .giftguide-message p {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 1rem;
+                line-height: 1.8;
+                margin: 0;
+            }
+
+            @media (max-width: 768px) {
+                .giftguide-message {
+                    margin: 3rem auto 0;
+                    padding: 1.75rem;
+                }
+
+                .giftguide-message h3 {
+                    font-size: 1.25rem;
+                }
+
+                .giftguide-message p {
+                    font-size: 0.95rem;
+                }
+            }
+
             /* Location Section Styles */
             .location-section {
                 padding: 5rem 2rem;
@@ -680,6 +1306,80 @@
                     observer.observe(el);
                 });
             })();
+
+            // Navbar toggle for mobile
+            var navbarToggle = document.getElementById('navbarToggle');
+            var navbarMenu = document.getElementById('navbarMenu');
+
+            if (navbarToggle) {
+                navbarToggle.addEventListener('click', function () {
+                    navbarToggle.classList.toggle('active');
+                    navbarMenu.classList.toggle('active');
+                });
+
+                // Close menu when a link is clicked
+                var navLinks = navbarMenu.querySelectorAll('.nav-link');
+                navLinks.forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        navbarToggle.classList.remove('active');
+                        navbarMenu.classList.remove('active');
+                    });
+                });
+            }
         </script>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>Made with love for Aurie's special day</p>
+                <p class="footer-credit">© Tatay Franz</p>
+            </div>
+        </footer>
+
+        <style>
+            /* Footer Styles */
+            .site-footer {
+                background: linear-gradient(135deg, #2a3a2a 0%, #1f2a1f 100%);
+                color: white;
+                padding: 3rem 2rem;
+                text-align: center;
+                margin-top: 4rem;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .site-footer p {
+                font-family: 'Space Grotesk', sans-serif;
+                margin: 0.5rem 0;
+                font-size: 0.95rem;
+                letter-spacing: 0.02em;
+            }
+
+            .footer-credit {
+                font-family: 'Fraunces', serif;
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-top: 1rem;
+                opacity: 0.95;
+            }
+
+            @media (max-width: 768px) {
+                .site-footer {
+                    padding: 2rem 1.5rem;
+                    margin-top: 3rem;
+                }
+
+                .site-footer p {
+                    font-size: 0.9rem;
+                }
+
+                .footer-credit {
+                    font-size: 1rem;
+                }
+            }
+        </style>
     </body>
 </html>
