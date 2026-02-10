@@ -304,8 +304,7 @@
                                 <tr>
                                     <th>Guest Names</th>
                                     <th>Guest Count</th>
-                                    <th>Contact Method</th>
-                                    <th>Contact Info</th>
+                                    <th>Contact Code</th>
                                     <th>Submitted</th>
                                 </tr>
                             </thead>
@@ -314,12 +313,7 @@
                                     <tr>
                                         <td>{{ $rsvp->guest_names }}</td>
                                         <td><strong>{{ $rsvp->guest_count }}</strong></td>
-                                        <td>
-                                            <span class="contact-badge contact-{{ $rsvp->contact_method }}">
-                                                {{ ucfirst($rsvp->contact_method) }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $rsvp->contact_value }}</td>
+                                        <td>{{ $rsvp->contact_code }}</td>
                                         <td>{{ $rsvp->created_at->format('M d, Y h:i A') }}</td>
                                     </tr>
                                 @endforeach
@@ -343,8 +337,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Message</th>
-                                    <th>Contact Method</th>
-                                    <th>Contact Info</th>
                                     <th>Submitted</th>
                                 </tr>
                             </thead>
@@ -353,12 +345,6 @@
                                     <tr>
                                         <td><strong>{{ $message->name }}</strong></td>
                                         <td>{{ Str::limit($message->message, 50) }}</td>
-                                        <td>
-                                            <span class="contact-badge contact-{{ $message->contact_method }}">
-                                                {{ ucfirst($message->contact_method) }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $message->contact_value }}</td>
                                         <td>{{ $message->created_at->format('M d, Y h:i A') }}</td>
                                     </tr>
                                 @endforeach

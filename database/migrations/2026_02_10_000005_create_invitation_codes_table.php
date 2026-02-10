@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_messages', function (Blueprint $table) {
+        Schema::create('invitation_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('message', 500);
+            $table->string('code', 50)->unique();
+            $table->unsignedInteger('max_guests');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_messages');
+        Schema::dropIfExists('invitation_codes');
     }
 };

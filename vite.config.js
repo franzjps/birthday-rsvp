@@ -7,9 +7,15 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
+            publicDirectory: 'public',
         }),
         tailwindcss(),
     ],
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        emptyOutDir: true,
+    },
     server: {
         host: '0.0.0.0',
         hmr: {

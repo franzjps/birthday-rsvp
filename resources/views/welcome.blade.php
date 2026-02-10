@@ -3,14 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-        <title>Aurie Day | Birthday Reservations</title>
+        <title>Aurie's Day | Birthday Reservations</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700|space-grotesk:400,500,600,700" rel="stylesheet" />
 
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @endif
+        <link rel="stylesheet" href="{{ asset('build/assets/app-lmYeIcHJ.css') }}">
+        <script defer src="{{ asset('build/assets/app-CMHj23pg.js') }}"></script>
     </head>
     <body>
 
@@ -52,19 +51,31 @@
             </div>
         @endif
 
-        <div class="page">
+        @if ($errors->any())
+            <div class="error-toast" id="errorToast" role="alert">
+                @if ($errors->has('codeRsvp'))
+                    <span>⚠ {{ $errors->first('codeRsvp') }}</span>
+                @elseif ($errors->has('guestCount'))
+                    <span>⚠ {{ $errors->first('guestCount') }}</span>
+                @else
+                    <span>⚠ Please check the form for errors.</span>
+                @endif
+            </div>
+        @endif
+
+        <div class="page" id="home">
             <div class="ambient"></div>
             <header class="site-header">
                 <div class="brand">
                     <div class="brand-mark">AD</div>
                     <div class="brand-text">
-                        <span class="brand-name">Aurie Day</span>
+                        <span class="brand-name">Aurie's Day</span>
                         <span class="brand-tag">Reservation</span>
                     </div>
                 </div>
             </header>
 
-            <main class="hero scroll-reveal" id="home">
+            <main class="hero scroll-reveal">
                 <div class="hero-copy">
                     <p class="eyebrow">Please join us for a christening celebration</p>
                     <h1>Val Aurie Flyn R. Samson</h1>
@@ -132,7 +143,7 @@
                 </div>
                 <section id="gallery" class="hero-carousel" data-carousel>
                     <div class="carousel-header">
-                        <h2>My lovely snapshots and videos</h2>
+                        <h2>My lovely snapshots</h2>
                         <div class="carousel-controls">
                             <button type="button" class="icon-btn" data-carousel-prev aria-label="Previous slide">
                                 <span aria-hidden="true">&#8592;</span>
@@ -144,58 +155,49 @@
                     </div>
                     <div class="carousel-viewport">
                         <div class="carousel-track" data-carousel-track>
+                            <article class="carousel-slide" data-type="image">
+                                <div class="media-frame">
+                                    <img src="/images/IMG_4772.JPG" alt="First picture moment" />
+                                </div>
+                                <div class="slide-caption">
+                                    <p class="slide-title">First Picture</p>
+                                    <p>Capturing this special day.</p>
+                                </div>
+                            </article>
                             <article class="carousel-slide is-active" data-type="image">
                                 <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&h=750&fit=crop" alt="Elegant birthday celebration with balloons" />
+                                    <img src="/images/IMG_4408.JPG" alt="Happy heart celebration" />
                                 </div>
                                 <div class="slide-caption">
-                                    <p class="slide-title">Elegant Garden Party</p>
-                                    <p>Botanical theme with sage and olive accents.</p>
+                                    <p class="slide-title">Happy Heart</p>
+                                    <p>Filled with love and joy.</p>
                                 </div>
                             </article>
                             <article class="carousel-slide" data-type="image">
                                 <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&h=750&fit=crop" alt="Beautiful birthday cake" />
+                                    <img src="/images/IMG_5935.JPG" alt="First bite celebration" />
                                 </div>
                                 <div class="slide-caption">
-                                    <p class="slide-title">Signature Cakes</p>
-                                    <p>Custom designs to match your celebration theme.</p>
+                                    <p class="slide-title">First Bite</p>
+                                    <p>Sweet moments shared together.</p>
                                 </div>
                             </article>
                             <article class="carousel-slide" data-type="image">
                                 <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=1200&h=750&fit=crop" alt="Festive party setup" />
+                                    <img src="/images/IMG_7394.JPG" alt="Joyful smile moment" />
                                 </div>
                                 <div class="slide-caption">
-                                    <p class="slide-title">Festive Atmosphere</p>
-                                    <p>Every detail crafted to create magical moments.</p>
+                                    <p class="slide-title">Joyful Smile</p>
+                                    <p>Pure happiness in every moment.</p>
                                 </div>
                             </article>
                             <article class="carousel-slide" data-type="image">
                                 <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=1200&h=750&fit=crop" alt="Table decorations" />
+                                    <img src="/images/IMG_1940.JPG" alt="Joyful smile moment" />
                                 </div>
                                 <div class="slide-caption">
-                                    <p class="slide-title">Tablescape Design</p>
-                                    <p>Curated place settings with fresh florals and greenery.</p>
-                                </div>
-                            </article>
-                            <article class="carousel-slide" data-type="image">
-                                <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&h=750&fit=crop" alt="Party desserts" />
-                                </div>
-                                <div class="slide-caption">
-                                    <p class="slide-title">Sweet Treats Bar</p>
-                                    <p>Delightful desserts and treats for all ages.</p>
-                                </div>
-                            </article>
-                            <article class="carousel-slide" data-type="image">
-                                <div class="media-frame">
-                                    <img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=1200&h=750&fit=crop" alt="Birthday candles" />
-                                </div>
-                                <div class="slide-caption">
-                                    <p class="slide-title">The Big Moment</p>
-                                    <p>Make a wish and celebrate life's special milestones.</p>
+                                    <p class="slide-title">Funny and Crazy Baby</p>
+                                    <p>Giggles, wiggles, and nonstop fun.</p>
                                 </div>
                             </article>
                         </div>
@@ -284,7 +286,7 @@
                     <div class="gift-card">
                         <div class="gift-icon">🛏️</div>
                         <h3>Crib Essentials</h3>
-                        <p>Soft blankets, pillow sets, or cozy crib bedding to make Aurie's sleep comfortable</p>
+                        <p>Soft blankets, pillow sets, or breathable cotton sheetse</p>
                     </div>
                     <div class="gift-card">
                         <div class="gift-icon">🧸</div>
@@ -294,12 +296,12 @@
                     <div class="gift-card">
                         <div class="gift-icon">👶</div>
                         <h3>Clothing & Accessories</h3>
-                        <p>Cute outfits, mittens, hats, or special christening-themed clothing in green or white</p>
+                        <p>Cute outfits, hats, or sweaters</p>
                     </div>
                     <div class="gift-card">
                         <div class="gift-icon">🍼</div>
                         <h3>Feeding & Care</h3>
-                        <p>Bottles, sterilizers, baby care kits, or premium baby products for daily care</p>
+                        <p>Bottles, sterilizers, baby care kits, or baby products for daily care</p>
                     </div>
                     <div class="gift-card">
                         <div class="gift-icon">📚</div>
@@ -417,41 +419,20 @@
                 <form class="modal-form" method="POST" action="{{ route('rsvp.store') }}">
                     @csrf
                     <label class="modal-label" for="guestNames">Guest names (please list all names)</label>
-                    <textarea id="guestNames" name="guestNames" rows="4" placeholder="Example: Maria Santos, Juan Santos, Ana Santos" required></textarea>
+                    <textarea id="guestNames" name="guestNames" rows="4" placeholder="Example: Maria Santos, Juan Santos, Ana Santos" required>{{ old('guestNames') }}</textarea>
+
+                    <label class="modal-label" for="codeRsvp">Code</label>
+                    <input id="codeRsvp" name="codeRsvp" type="text" placeholder="Enter your invitation code" value="{{ old('codeRsvp') }}" class="{{ $errors->has('codeRsvp') ? 'error' : '' }}" required />
+                    <span id="codeValidationMessage" class="code-validation-message"></span>
+                    @error('codeRsvp')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
 
                     <label class="modal-label" for="guestCount">Number of guests attending</label>
-                    <input id="guestCount" name="guestCount" type="number" min="1" max="20" placeholder="e.g., 4" required />
-
-                    <fieldset class="modal-fieldset">
-                        <legend class="modal-label">Preferred contact</legend>
-                        <div class="contact-options" role="radiogroup" aria-label="Preferred contact">
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodRsvp" value="phone" data-contact-radio checked />
-                                <span>Phone number</span>
-                            </label>
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodRsvp" value="email" data-contact-radio />
-                                <span>Email</span>
-                            </label>
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodRsvp" value="facebook" data-contact-radio />
-                                <span>Facebook account</span>
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <div class="contact-input" data-contact-input="phone">
-                        <label class="modal-label" for="contactPhoneRsvp">Phone number</label>
-                        <input id="contactPhoneRsvp" name="contactPhoneRsvp" type="tel" placeholder="e.g., +63 912 345 6789" />
-                    </div>
-                    <div class="contact-input is-hidden" data-contact-input="email">
-                        <label class="modal-label" for="contactEmailRsvp">Email</label>
-                        <input id="contactEmailRsvp" name="contactEmailRsvp" type="email" placeholder="e.g., you@email.com" />
-                    </div>
-                    <div class="contact-input is-hidden" data-contact-input="facebook">
-                        <label class="modal-label" for="contactFacebookRsvp">Facebook account</label>
-                        <input id="contactFacebookRsvp" name="contactFacebookRsvp" type="text" placeholder="e.g., facebook.com/yourname" />
-                    </div>
+                    <input id="guestCount" name="guestCount" type="number" min="1" max="20" placeholder="e.g., 4" value="{{ old('guestCount') }}" class="{{ $errors->has('guestCount') ? 'error' : '' }}" required />
+                    @error('guestCount')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
 
                     <div class="modal-actions">
                         <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
@@ -468,7 +449,7 @@
                     <div>
                         <p class="modal-eyebrow">With Love</p>
                         <h3 id="loveModalTitle">Sending love to Aurie</h3>
-                        <p class="modal-subtitle">Share a short message and your contact details.</p>
+                        <p class="modal-subtitle">Share a short message for Aurie.</p>
                     </div>
                     <button type="button" class="modal-close" aria-label="Close" data-close-modal>&times;</button>
                 </div>
@@ -479,37 +460,6 @@
 
                     <label class="modal-label" for="loveMessage">Message for Aurie</label>
                     <input id="loveMessage" name="loveMessage" type="text" placeholder="A sweet note for Aurie" required />
-
-                    <fieldset class="modal-fieldset">
-                        <legend class="modal-label">Preferred contact</legend>
-                        <div class="contact-options" role="radiogroup" aria-label="Preferred contact">
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodLove" value="phone" data-contact-radio checked />
-                                <span>Phone number</span>
-                            </label>
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodLove" value="email" data-contact-radio />
-                                <span>Email</span>
-                            </label>
-                            <label class="contact-option">
-                                <input type="radio" name="contactMethodLove" value="facebook" data-contact-radio />
-                                <span>Facebook account</span>
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <div class="contact-input" data-contact-input="phone">
-                        <label class="modal-label" for="contactPhoneLove">Phone number</label>
-                        <input id="contactPhoneLove" name="contactPhoneLove" type="tel" placeholder="e.g., +63 912 345 6789" />
-                    </div>
-                    <div class="contact-input is-hidden" data-contact-input="email">
-                        <label class="modal-label" for="contactEmailLove">Email</label>
-                        <input id="contactEmailLove" name="contactEmailLove" type="email" placeholder="e.g., you@email.com" />
-                    </div>
-                    <div class="contact-input is-hidden" data-contact-input="facebook">
-                        <label class="modal-label" for="contactFacebookLove">Facebook account</label>
-                        <input id="contactFacebookLove" name="contactFacebookLove" type="text" placeholder="e.g., facebook.com/yourname" />
-                    </div>
 
                     <div class="modal-actions">
                         <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
@@ -1324,6 +1274,59 @@
                         navbarToggle.classList.remove('active');
                         navbarMenu.classList.remove('active');
                     });
+                });
+            }
+
+            // Auto-open RSVP modal if there are validation errors
+            @if ($errors->any() && (old('codeRsvp') || old('guestCount') || old('guestNames')))
+                document.addEventListener('DOMContentLoaded', function() {
+                    var rsvpModal = document.getElementById('rsvpModal');
+                    if (rsvpModal) {
+                        rsvpModal.classList.add('is-open');
+                        rsvpModal.setAttribute('aria-hidden', 'false');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            @endif
+
+            // Check invitation code validity
+            var codeInput = document.getElementById('codeRsvp');
+            var codeMessage = document.getElementById('codeValidationMessage');
+            var guestCountInput = document.getElementById('guestCount');
+            var checkCodeTimeout;
+
+            if (codeInput && codeMessage) {
+                codeInput.addEventListener('input', function() {
+                    clearTimeout(checkCodeTimeout);
+                    var code = this.value.trim();
+                    
+                    if (code.length === 0) {
+                        codeMessage.textContent = '';
+                        codeMessage.className = 'code-validation-message';
+                        return;
+                    }
+
+                    codeMessage.textContent = 'Checking...';
+                    codeMessage.className = 'code-validation-message checking';
+
+                    checkCodeTimeout = setTimeout(function() {
+                        fetch('/check-code/' + encodeURIComponent(code))
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.valid) {
+                                    codeMessage.textContent = '✓ ' + data.message;
+                                    codeMessage.className = 'code-validation-message valid';
+                                    guestCountInput.max = data.max_guests;
+                                } else {
+                                    codeMessage.textContent = '✗ ' + data.message;
+                                    codeMessage.className = 'code-validation-message invalid';
+                                }
+                            })
+                            .catch(error => {
+                                codeMessage.textContent = '';
+                                codeMessage.className = 'code-validation-message';
+                            });
+                    }, 500);
                 });
             }
         </script>

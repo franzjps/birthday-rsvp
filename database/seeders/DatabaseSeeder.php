@@ -16,12 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
+        User::create([
             'name' => 'Admin',
             'email' => 'sfranzjohnpaul22@gmail.com',
             'password' => Hash::make('tatayAurie22'),
+        ]);
+
+        $this->call([
+            InvitationCodeSeeder::class,
         ]);
     }
 }

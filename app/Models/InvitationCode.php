@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RsvpSubmission extends Model
+class InvitationCode extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'guest_names',
-        'guest_count',
-        'contact_code',
+        'code',
+        'max_guests',
+        'is_used',
+    ];
+
+    protected $casts = [
+        'is_used' => 'boolean',
     ];
 }

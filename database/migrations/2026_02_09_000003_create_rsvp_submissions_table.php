@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('guest_names');
             $table->unsignedInteger('guest_count');
-            $table->string('contact_method', 20);
-            $table->string('contact_value', 255);
+            $table->string('contact_code', 255);
             $table->timestamps();
         });
     }

@@ -12,7 +12,5 @@ class LoveMessage extends Model
     protected $fillable = [
         'name',
         'message',
-        'contact_method',
-        'contact_value',
     ];
 }
